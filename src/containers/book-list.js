@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class BookList extends Component {
+// Container is just a component that have direct access to the state provided by Redux
+class BookList extends Component {
 
     renderList() {
         return this.props.books.map((book) => {
@@ -9,8 +11,10 @@ export default class BookList extends Component {
             );
         });
     }
-    
+
     render() {
+        //console.log(this.props.abc); // -> will get the key attribute "abc" set on the mapStateToProps function
+        // This function is the "glue" used to connect react and redux, to get the key "abc" from the state and set it on the props
         return (
             <ul className="list-group col-sm-4">
                 {this.renderList()}
@@ -18,3 +22,12 @@ export default class BookList extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    // Whatever is return will show up as props inside of BookList
+    return {
+        books: state.books
+    };
+}
+
+export default connect(mapStateToProps)(BookList);
