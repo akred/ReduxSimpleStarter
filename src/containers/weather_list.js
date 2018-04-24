@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
+import Chart from '../components/chart';
 
 class WeatherList extends Component {
 
@@ -8,15 +9,13 @@ class WeatherList extends Component {
 
     const name = cityData.city.name;
     const temps = cityData.list.map(weather => weather.main.temp);
-    console.log(temps);
+    //console.log(temps);
 
     return (
-      <tr>
-        <td key={name}>{name}</td>
+      <tr key={name}>
+        <td>{name}</td>
         <td>
-          <Sparklines height={120} witdh={180} data={temps}>
-            <SparklinesLine color="blue" />
-          </Sparklines>
+          <Chart data={temps} color="orange" />
         </td>
       </tr>
     );
